@@ -1,11 +1,11 @@
-# Zabbix Slack Notifier
+# Zabbix Mattermost Notifier
 
-Simple python script to send notifications to Slack using `attachments: []` so that they look pretty in the chat.
+Simple python script to send notifications to Mattermost using `attachments: []` so that they look pretty in the chat.
 
 Only tested in Zabbix 3.4 on Ubuntu 14.04 and 16.04
 
 ## Setup
-Put your Slack webhook and url to your Zabbix install in the top of the python script. Lines 9 and 10. You can change the username the messages will seem to come from here too.
+Put your Mattermost webhook and url to your Zabbix install in the top of the python script. Lines 9 and 10. You can change the username the messages will seem to come from here too.
 
 Place the script in the custom alert scripts location. It's defined by the `AlertScriptsPath=` setting in your __zabbix_server.conf__ file.
 
@@ -40,7 +40,7 @@ Set the operations to send to your user from earlier also. You can set the repea
 
 And finally... Wait for the alerts to start coming it. The emoji and colour of the attachment depends on which severity the trigger has or if it's a recovery-event.
 
-Slack won't show emoji on repeated messages from the same user unless enough time has passed so don't worry if some emoji seem to be missing.
+Mattermost won't show emoji on repeated messages from the same user unless enough time has passed so don't worry if some emoji seem to be missing.
 
 Clicking on the name of the trigger will take you to the event in the Zabbix web UI. This is why it's defined up top along with the webhook.
 
