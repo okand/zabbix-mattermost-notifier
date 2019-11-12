@@ -6,7 +6,7 @@ import json
 
 
 # basic settings
-webhook_url = 'https://hooks.slack.com/services/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+webhook_url = 'https://mattermost.example.com/hooks/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 zabbix_url = 'https://<ip or domain>/zabbix/'
 username = 'zabbix'
 
@@ -70,25 +70,17 @@ else:
 
 
 # make json
-message_to_slack = json.dumps({"text": zabbix_subject,"channel": zabbix_to,"username": username,"icon_emoji": icon_emoji,"attachments": [{"color": color,"fallback": fallback,"pretext": fallback,"author_name": host_name,"title": trigger_name,"title_link": zabbix_link,"text": trigger_description,"fields": [{"title": "Status","value": status,"short": True},{"title": "Severity","value": trigger_severity,"short": True},{"title": "Time","value": event_combined,"short": True},{"title": "EventID","value": event_id,"short": True}]}]})
+message_to_mattermost = json.dumps({"text": zabbix_subject,"channel": zabbix_to,"username": username,"icon_emoji": icon_emoji,"attachments": [{"color": color,"fallback": fallback,"pretext": fallback,"author_name": host_name,"title": trigger_name,"title_link": zabbix_link,"text": trigger_description,"fields": [{"title": "Status","value": status,"short": True},{"title": "Severity","value": trigger_severity,"short": True},{"title": "Time","value": event_combined,"short": True},{"title": "EventID","value": event_id,"short": True}]}]})
 
 
-# some tests
-#f = open('/tmp/myfile.txt', 'w')
-#f.write(message_to_slack)
-#f.close()
-
-#print(message_to_slack)
-
-
-# send to slack
+# send to mattermost
 response = requests.post(
-  webhook_url, data=message_to_slack,
+  webhook_url, data=message_to_mattermost,
   headers={'Content-Type': 'application/json'}
 )
 if response.status_code != 200:
   raise ValueError(
-    'Request to slack returned an error %s, the response is:\n%s'
+    'Request to mattermost returned an error %s, the response is:\n%s'
     % (response.status_code, response.text)
   )
 
